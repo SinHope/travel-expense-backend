@@ -6,7 +6,7 @@ import Trip from "../models/Trip.js"; // Make sure this file exists
 const router = express.Router();
 
 // GET all trips
-router.get("/api/trips", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const trips = await Trip.find();
     res.json(trips);
@@ -16,7 +16,7 @@ router.get("/api/trips", async (req, res) => {
 });
 
 // POST a new trip
-router.post("/api/trips", async (req, res) => {
+router.post("/", async (req, res) => {
   const { destination, date, budget } = req.body;
 
   if (!destination || !date || !budget) {
@@ -34,7 +34,7 @@ router.post("/api/trips", async (req, res) => {
 });
 
 // DELETE a trip by ID
-router.delete("/api/trips/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     await Trip.findByIdAndDelete(req.params.id);
     res.json({ message: "Trip deleted" });
@@ -44,7 +44,7 @@ router.delete("/api/trips/:id", async (req, res) => {
 });
 
 // PUT (edit) a trip
-router.put("/api/trips/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const updatedTrip = await Trip.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
